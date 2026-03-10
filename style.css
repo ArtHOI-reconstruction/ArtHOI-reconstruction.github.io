@@ -583,6 +583,56 @@ body {
     display: none;
 }
 
+.references-section {
+    padding-top: 24px;
+    padding-bottom: 16px;
+}
+
+.references-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.references-list {
+    margin: 0;
+    padding-left: 22px;
+    display: grid;
+    gap: 6px;
+}
+
+.references-list li {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.ref-venue {
+    font-style: normal;
+    color: #888;
+}
+
+.ref-link {
+    margin-left: 6px;
+    font-size: 13px;
+    color: var(--link);
+    text-decoration: none;
+}
+
+.ref-link:hover {
+    text-decoration: underline;
+}
+
+.ref-sup {
+    font-size: 0.72em;
+    vertical-align: super;
+    line-height: 0;
+}
+
+.ref-sup a {
+    color: #2c5cc5;
+    text-decoration: none;
+}
+
 a {
     color: var(--link);
 }
