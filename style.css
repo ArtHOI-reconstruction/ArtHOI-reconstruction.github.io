@@ -5,6 +5,7 @@
     --muted: #5f6368;
     --line: #dedede;
     --link: #1a73e8;
+    --conference-red: #c6262e;
 }
 
 * {
@@ -83,17 +84,9 @@ body {
     width: min(100%, 760px);
 }
 
-.venue {
-    margin: 0 0 10px;
-    font-size: 14px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--muted);
-}
-
 .paper-title {
-    margin: 0 auto 14px;
-    max-width: 1060px;
+    margin: 0 auto 16px;
+    max-width: 980px;
     font-family: 'Castoro', serif;
     font-size: clamp(22px, 2.5vw, 28px);
     line-height: 1.25;
@@ -159,7 +152,7 @@ body {
 }
 
 .title-tags {
-    margin: 0 auto 20px;
+    margin: 0 auto 24px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -206,12 +199,26 @@ body {
     color: var(--muted);
 }
 
+.authors {
+    line-height: 1.7;
+}
+
+.conference-note {
+    margin: 8px 0 0;
+    font-family: 'Space Grotesk', 'Noto Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--conference-red);
+}
+
 .affiliations {
-    margin-top: 3px;
+    margin-top: 8px;
 }
 
 .author-email {
-    margin: 4px 0 0;
+    margin: 8px 0 0;
     font-size: 15px;
     color: var(--muted);
 }
@@ -235,7 +242,7 @@ body {
 }
 
 .links-row {
-    margin-top: 20px;
+    margin-top: 24px;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
@@ -684,6 +691,11 @@ a {
     .paper-title {
         font-size: 22px;
         max-width: 100%;
+    }
+
+    .conference-note {
+        font-size: 14px;
+        letter-spacing: 0.05em;
     }
 
     .title-line1,

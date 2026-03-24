@@ -3,7 +3,7 @@
 **CVPR 2026 Submission**
 
 
-[**Project Page**](https://arthoi-reconstruction.github.io/) | Paper (Coming Soon) | Code (Coming Soon) | Data (Coming Soon)
+[**Project Page**](https://arthoi-reconstruction.github.io/) | [Paper](./CVPR26_ArtHOI_zikaiwang.pdf) | [Code](https://github.com/hitcs-zikaiwang/ArtHOI-4D-Reconstruction) | [Data](https://github.com/hitcs-zikaiwang/ArtHOI-4D-Reconstruction)
 
 ---
 

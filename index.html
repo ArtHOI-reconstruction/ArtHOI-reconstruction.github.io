@@ -32,7 +32,6 @@
 <body>
     <main class="cvpr-page">
         <header class="hero section">
-            <p class="venue">CVPR 2026 Submission</p>
             <h1 class="paper-title">
                 <span class="title-line1"><span class="title-emoji" aria-hidden="true">🧑‍🔧</span><span class="title-brand">ArtHOI</span><span class="title-sep">:</span> Taming Foundation Models for Monocular 4D Reconstruction of</span>
                 <span class="title-line2"><span class="title-hao">Hand-Articulated-Object</span> Interactions</span>
@@ -51,6 +50,7 @@
                 <span>Hui Li<sup class="author-mark">1</sup></span>,
                 <span>Wangmeng Zuo<sup class="author-mark">1</sup></span>
             </p>
+            <p class="conference-note">CVPR 2026</p>
             <p class="affiliations">
                 <sup class="author-mark">1</sup>Harbin Institute of Technology
                 &ensp;
@@ -63,17 +63,17 @@
             </p>
 
             <div class="links-row">
-                <a class="link-btn" href="" target="_blank" rel="noopener noreferrer">
+                <a class="link-btn" href="./CVPR26_ArtHOI_zikaiwang.pdf" target="_blank" rel="noopener noreferrer">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-                    Paper (Coming Soon)
+                    Paper
                 </a>
-                <a class="link-btn" href="" target="_blank" rel="noopener noreferrer">
+                <a class="link-btn" href="https://github.com/hitcs-zikaiwang/ArtHOI-4D-Reconstruction" target="_blank" rel="noopener noreferrer">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-                    Code (Coming Soon)
+                    Code
                 </a>
-                <a class="link-btn" href="" target="_blank" rel="noopener noreferrer">
+                <a class="link-btn" href="https://github.com/hitcs-zikaiwang/ArtHOI-4D-Reconstruction" target="_blank" rel="noopener noreferrer">
                     <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
-                    Data (Coming Soon)
+                    Data
                 </a>
             </div>
         </header>
@@ -222,16 +222,16 @@
             <div class="quant-grid">
                 <figure class="quant-item">
                     <div class="media-frame table-frame">
-                        <img src="data/table_ArtHOI_RGBD_v1.png" alt="4D reconstruction accuracy on ArtHOI-RGBD" />
+                        <img src="data/table_ArtHOI_RGBD_v2.jpg" alt="4D reconstruction accuracy on ArtHOI-RGBD" />
                     </div>
-                    <figcaption class="caption"><strong>4D Reconstruction on ArtHOI-RGBD.</strong> CD, MSSD, and F-scores (5/10 mm) comparing ArtHOI vs. RSRD across five object sequences. ArtHOI achieves consistently lower reconstruction errors, especially on challenging cases (Stapler, CD Drive) with heavy hand-part occlusions.</figcaption>
+                    <figcaption class="caption"><strong>4D Reconstruction on ArtHOI-RGBD.</strong> CD, MSSD, and F-scores (in mm) on five object sequences. Comparison with EasyHOI and RSRD baselines shows significantly improved performance, particularly on challenging cases with heavy hand-part occlusions.</figcaption>
                 </figure>
 
                 <figure class="quant-item">
                     <div class="media-frame table-frame">
-                        <img src="data/table_RSRD_v1.png" alt="4D reconstruction accuracy on RSRD dataset" />
+                        <img src="data/table_RSRD_v2.jpg" alt="4D reconstruction accuracy on RSRD dataset" />
                     </div>
-                    <figcaption class="caption"><strong>4D Reconstruction on RSRD.</strong> Results on monocular RGB videos from the RSRD dataset. ArtHOI achieves comparable or better reconstruction quality without requiring any pre-scanned object, and additionally handles ArtHOI-Wild videos where RSRD fails entirely.</figcaption>
+                    <figcaption class="caption"><strong>4D Reconstruction on RSRD.</strong> Results on monocular RGB videos from the RSRD dataset (Scissor, LED Light, Bear, Sunglasses). Our method demonstrates competitive reconstruction quality compared to EasyHOI and RSRD, without requiring pre-scanned object models. Extends to ArtHOI-Wild videos where RSRD is not applicable.</figcaption>
                 </figure>
 
                 <figure class="quant-item">
@@ -254,13 +254,12 @@
             <h2 class="section-title">Citation</h2>
             <p class="section-intro">If you find ArtHOI useful for your research, please consider citing our paper:</p>
             <br/>
-            <!-- <pre class="bibtex">@inproceedings{anonymous2026arthoi,
-                title={ArtHOI: Taming Foundation Models for Monocular 4D Reconstruction of Hand-Articulated-Object Interactions},
-                author={Anonymous Author},
-                booktitle={CVPR},
-                year={2026}
-                }</pre> -->
-            <pre class="bibtex">TBD</pre>
+            <pre class="bibtex">@inproceedings{wang2026arthoi,
+  title={ArtHOI: Taming Foundation Models for Monocular 4D Reconstruction of Hand-Articulated-Object Interactions},
+  author={Wang, Zikai and Zhang, Zhilu and Wang, Yiqing and Li, Hui and Zuo, Wangmeng},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year={2026}
+}</pre>
         </section>
 
         <section class="section references-section">
