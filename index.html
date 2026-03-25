@@ -238,7 +238,7 @@
                     <div class="media-frame table-frame">
                         <img src="data/table_HOAlign.png" alt="HOI alignment Co² scores" />
                     </div>
-                    <figcaption class="caption"><strong>HOI Alignment Quality (Co² Score<sup class="ref-sup"><a href="#ref-open3dhoi">[1]</a></sup>).</strong> Collision-Contact scores across ArtHOI-RGBD, RSRD, and ArtHOI-Wild. Our MLLM-guided alignment achieves the lowest Co² scores, outperforming unaligned outputs and RSRD&nbsp;+&nbsp;WiLoR baselines on all three sources. Lower is better.</figcaption>
+                    <figcaption class="caption"><strong>HOI Alignment Quality (<a href="https://wenboran2002.github.io/3dhoi/">Co²</a> Score).</strong> Collision-Contact scores across ArtHOI-RGBD, RSRD, and ArtHOI-Wild. Our MLLM-guided alignment achieves the lowest Co² scores, outperforming unaligned outputs and RSRD&nbsp;+&nbsp;WiLoR baselines on all three sources. Lower is better.</figcaption>
                 </figure>
 
                 <figure class="quant-item">
@@ -262,17 +262,6 @@
 }</pre>
         </section>
 
-        <section class="section references-section">
-            <h2 class="section-title references-title">References</h2>
-            <ol class="references-list">
-                <li id="ref-open3dhoi">
-                    Boran Wen, et al,
-                    <em>Reconstructing In-the-Wild Open-Vocabulary Human-Object Interactions</em>
-                    <span class="ref-venue">CVPR 2025.</span>
-                    <a class="ref-link" href="https://wenboran2002.github.io/3dhoi/" target="_blank" rel="noopener noreferrer">[Project]</a>
-                </li>
-            </ol>
-        </section>
     </main>
 </body>
 
@@ -281,35 +270,68 @@
 <script>
 (function(){
     const carousel = document.getElementById('videoCarousel');
+    const AUTOPLAY_MS = 3000;
+    const RESUME_DELAY_MS = 2400;
+    const ANIM_LOCK_MS = 520;
     let timer;
+    let isAnimating = false;
 
-    function advance() {
+    if (!carousel) return;
+
+    function getStep() {
         const card = carousel.querySelector('.carousel-card');
-        const gap = parseInt(getComputedStyle(carousel).gap) || 16;
-        const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-        if (carousel.scrollLeft >= maxScroll - 4) {
-            carousel.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-            carousel.scrollBy({ left: card.offsetWidth + gap, behavior: 'smooth' });
-        }
+        if (!card) return 0;
+        const gap = parseInt(getComputedStyle(carousel).gap, 10) || 16;
+        return card.offsetWidth + gap;
     }
 
-    function start() { timer = setInterval(advance, 3500); }
+    function getCardCount() {
+        return carousel.querySelectorAll('.carousel-card').length;
+    }
+
+    function scrollToIndex(index) {
+        const step = getStep();
+        if (!step) return;
+        isAnimating = true;
+        carousel.scrollTo({ left: step * index, behavior: 'smooth' });
+        setTimeout(() => {
+            isAnimating = false;
+        }, ANIM_LOCK_MS);
+    }
+
+    function advance() {
+        if (isAnimating) return;
+        const count = getCardCount();
+        const step = getStep();
+        if (!count || !step) return;
+        const currentIndex = Math.round(carousel.scrollLeft / step);
+        const nextIndex = (currentIndex + 1) % count;
+        scrollToIndex(nextIndex);
+    }
+
+    function start() {
+        stop();
+        timer = setInterval(advance, AUTOPLAY_MS);
+    }
+
     function stop()  { clearInterval(timer); }
 
     carousel.addEventListener('mouseenter', stop);
     carousel.addEventListener('mouseleave', start);
     carousel.addEventListener('touchstart', stop, { passive: true });
-    carousel.addEventListener('touchend',   () => setTimeout(start, 2000), { passive: true });
+    carousel.addEventListener('touchend',   () => setTimeout(start, RESUME_DELAY_MS), { passive: true });
 
     start();
 
     window.scrollCarousel = function(btn, dir) {
         stop();
-        const card = carousel.querySelector('.carousel-card');
-        const gap = parseInt(getComputedStyle(carousel).gap) || 16;
-        carousel.scrollBy({ left: dir * (card.offsetWidth + gap), behavior: 'smooth' });
-        setTimeout(start, 3500);
+        const count = getCardCount();
+        const step = getStep();
+        if (!count || !step) return;
+        const currentIndex = Math.round(carousel.scrollLeft / step);
+        const nextIndex = (currentIndex + dir + count) % count;
+        scrollToIndex(nextIndex);
+        setTimeout(start, AUTOPLAY_MS);
     };
 })();
 </script>
