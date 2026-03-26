@@ -445,12 +445,16 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
+    width: 100%;
+    overflow: hidden;
 }
 
 .teaser-vid {
     display: block;
     width: 100%;
+    max-width: 100%;
     height: auto;
+    min-width: 0;
 }
 
 .teaser-pause-icon {
@@ -533,6 +537,8 @@ body {
 
     .teaser-vid {
         flex: 0 0 100%;
+        min-width: 0;
+        max-width: 100%;
         scroll-snap-align: start;
     }
 
@@ -875,5 +881,21 @@ a {
     .link-btn {
         width: 100%;
         min-width: 0;
+    }
+
+    .idea-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .idea-card {
+        padding: 14px 16px;
+        gap: 12px;
+    }
+
+    .idea-body p {
+        font-size: 14px;
+        line-height: 1.62;
     }
 }
