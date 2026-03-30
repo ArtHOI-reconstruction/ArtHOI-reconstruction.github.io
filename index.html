@@ -81,10 +81,22 @@
         <section class="section teaser-section">
             <div class="teaser-grid-wrap" id="teaserWrap">
                 <div class="teaser-grid" id="teaserGrid">
-                    <video class="teaser-vid" src="data/video/itw_cddrive_merge.mp4" autoplay muted playsinline></video>
-                    <video class="teaser-vid" src="data/video/rs_stapler2_merge.mp4" autoplay muted playsinline></video>
-                    <video class="teaser-vid" src="data/video/rsrd_nerfgun_2x_merge.mp4" autoplay muted playsinline></video>
-                    <video class="teaser-vid" src="data/video/ytb_waffle2_2x_merged.mp4" autoplay muted playsinline></video>
+                    <video class="teaser-vid" autoplay muted playsinline webkit-playsinline preload="metadata" data-video-title="Teaser: CD Drive">
+                        <source src="data/video/itw_cddrive_merge.mp4" type="video/mp4" />
+                        <a href="data/video/itw_cddrive_merge.mp4">Open the CD Drive teaser video</a>
+                    </video>
+                    <video class="teaser-vid" autoplay muted playsinline webkit-playsinline preload="metadata" data-video-title="Teaser: Stapler">
+                        <source src="data/video/rs_stapler2_merge.mp4" type="video/mp4" />
+                        <a href="data/video/rs_stapler2_merge.mp4">Open the Stapler teaser video</a>
+                    </video>
+                    <video class="teaser-vid" autoplay muted playsinline webkit-playsinline preload="metadata" data-video-title="Teaser: Nerf Gun">
+                        <source src="data/video/rsrd_nerfgun_2x_merge.mp4" type="video/mp4" />
+                        <a href="data/video/rsrd_nerfgun_2x_merge.mp4">Open the Nerf Gun teaser video</a>
+                    </video>
+                    <video class="teaser-vid" autoplay muted playsinline webkit-playsinline preload="metadata" data-video-title="Teaser: Waffle Maker">
+                        <source src="data/video/ytb_waffle2_2x_merged.mp4" type="video/mp4" />
+                        <a href="data/video/ytb_waffle2_2x_merged.mp4">Open the Waffle Maker teaser video</a>
+                    </video>
                 </div>
                 <div class="teaser-pause-icon" id="teaserPauseIcon" aria-hidden="true">
                     <svg id="teaserIconSvg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"></svg>
@@ -202,19 +214,31 @@
                 </button>
                 <div class="video-carousel" id="videoCarousel">
                     <article class="carousel-card">
-                        <video src="data/video/rs_scissor_compo.mp4" autoplay muted loop playsinline></video>
+                        <video autoplay muted loop playsinline webkit-playsinline preload="metadata" data-video-title="ArtHOI-RGBD: Scissors">
+                            <source src="data/video/rs_scissor_compo.mp4" type="video/mp4" />
+                            <a href="data/video/rs_scissor_compo.mp4">Open the Scissors result video</a>
+                        </video>
                         <p class="carousel-label">ArtHOI-RGBD: Scissors</p>
                     </article>
                     <article class="carousel-card">
-                        <video src="data/video/rs_stapler2_compo.mp4" autoplay muted loop playsinline></video>
+                        <video autoplay muted loop playsinline webkit-playsinline preload="metadata" data-video-title="ArtHOI-RGBD: Stapler">
+                            <source src="data/video/rs_stapler2_compo.mp4" type="video/mp4" />
+                            <a href="data/video/rs_stapler2_compo.mp4">Open the Stapler result video</a>
+                        </video>
                         <p class="carousel-label">ArtHOI-RGBD: Stapler</p>
                     </article>
                     <article class="carousel-card">
-                        <video src="data/video/rs_cddrive2_compo.mp4" autoplay muted loop playsinline></video>
+                        <video autoplay muted loop playsinline webkit-playsinline preload="metadata" data-video-title="ArtHOI-RGBD: CD Drive">
+                            <source src="data/video/rs_cddrive2_compo.mp4" type="video/mp4" />
+                            <a href="data/video/rs_cddrive2_compo.mp4">Open the CD Drive result video</a>
+                        </video>
                         <p class="carousel-label">ArtHOI-RGBD: CD Drive</p>
                     </article>
                     <article class="carousel-card">
-                        <video src="data/video/rs_headphone1_compo.mp4" autoplay muted loop playsinline></video>
+                        <video autoplay muted loop playsinline webkit-playsinline preload="metadata" data-video-title="ArtHOI-RGBD: Headphones">
+                            <source src="data/video/rs_headphone1_compo.mp4" type="video/mp4" />
+                            <a href="data/video/rs_headphone1_compo.mp4">Open the Headphones result video</a>
+                        </video>
                         <p class="carousel-label">ArtHOI-RGBD: Headphones</p>
                     </article>
                 </div>
@@ -277,20 +301,203 @@
 </html>
 
 <script>
-(function(){
-    const carousel = document.getElementById('videoCarousel');
-    const AUTOPLAY_MS = 3000;
-    const RESUME_DELAY_MS = 2400;
-    const ANIM_LOCK_MS = 520;
-    let timer;
-    let isAnimating = false;
+(function (window, document) {
+    function hasClass(el, className) {
+        if (!el) return false;
+        if (el.classList) return el.classList.contains(className);
+        return new RegExp('(^|\\s)' + className + '(\\s|$)').test(el.className);
+    }
 
-    if (!carousel) return;
+    function addClass(el, className) {
+        if (!el || hasClass(el, className)) return;
+        if (el.classList) {
+            el.classList.add(className);
+            return;
+        }
+        el.className += (el.className ? ' ' : '') + className;
+    }
+
+    function removeClass(el, className) {
+        if (!el) return;
+        if (el.classList) {
+            el.classList.remove(className);
+            return;
+        }
+        el.className = el.className.replace(new RegExp('(^|\\s)' + className + '(\\s|$)', 'g'), ' ').replace(/\s+/g, ' ').replace(/^\s+|\s+$/g, '');
+    }
+
+    function getVideoSource(video) {
+        if (!video) return '';
+        if (video.getAttribute('src')) return video.getAttribute('src');
+        var source = video.querySelector('source');
+        return source ? source.getAttribute('src') : '';
+    }
+
+    function supportsMp4Playback() {
+        var probe = document.createElement('video');
+        if (!probe || typeof probe.canPlayType !== 'function') return false;
+        var maybe = probe.canPlayType('video/mp4');
+        return maybe === 'maybe' || maybe === 'probably';
+    }
+
+    function safeScrollToX(el, left) {
+        if (!el) return;
+        if (typeof el.scrollTo === 'function') {
+            try {
+                el.scrollTo({ left: left, behavior: 'smooth' });
+                return;
+            } catch (error) {}
+            try {
+                el.scrollTo(left, 0);
+                return;
+            } catch (legacyError) {}
+        }
+        el.scrollLeft = left;
+    }
+
+    function prepareVideo(video) {
+        if (!video) return;
+        video.defaultMuted = true;
+        video.muted = true;
+        video.setAttribute('muted', 'muted');
+        video.setAttribute('playsinline', 'playsinline');
+        video.setAttribute('webkit-playsinline', 'webkit-playsinline');
+        video.setAttribute('preload', 'metadata');
+    }
+
+    function enableManualPlayback(video) {
+        if (!video) return;
+        video.autoplay = false;
+        video.removeAttribute('autoplay');
+        video.controls = true;
+        video.setAttribute('controls', 'controls');
+        addClass(video, 'video-manual-mode');
+    }
+
+    function renderVideoFallback(video) {
+        var parent = video && video.parentNode;
+        var src = getVideoSource(video);
+        var title = video && video.getAttribute('data-video-title') ? video.getAttribute('data-video-title') : 'Open video';
+        var link;
+        var titleNode;
+        var hintNode;
+
+        if (!parent || !src) return;
+
+        link = document.createElement('a');
+        link.className = 'video-fallback';
+        link.href = src;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+
+        titleNode = document.createElement('span');
+        titleNode.className = 'video-fallback__title';
+        titleNode.appendChild(document.createTextNode(title));
+
+        hintNode = document.createElement('span');
+        hintNode.className = 'video-fallback__hint';
+        hintNode.appendChild(document.createTextNode('This browser cannot autoplay this MP4 reliably. Open the file directly.'));
+
+        link.appendChild(titleNode);
+        link.appendChild(hintNode);
+
+        if (hasClass(parent, 'carousel-card')) {
+            addClass(parent, 'carousel-card--fallback');
+        }
+
+        parent.replaceChild(link, video);
+    }
+
+    function tryAutoplay(video, onSuccess, onFailure) {
+        var settled = false;
+        var timeoutId;
+        var playResult;
+
+        function cleanup() {
+            if (timeoutId) clearTimeout(timeoutId);
+            if (video.removeEventListener) {
+                video.removeEventListener('playing', handleSuccess);
+                video.removeEventListener('error', handleFailure);
+            }
+        }
+
+        function handleSuccess() {
+            if (settled) return;
+            settled = true;
+            cleanup();
+            if (typeof onSuccess === 'function') onSuccess(video);
+        }
+
+        function handleFailure() {
+            if (settled) return;
+            settled = true;
+            cleanup();
+            enableManualPlayback(video);
+            if (typeof onFailure === 'function') onFailure(video);
+        }
+
+        prepareVideo(video);
+
+        if (video.addEventListener) {
+            video.addEventListener('playing', handleSuccess);
+            video.addEventListener('error', handleFailure);
+        }
+
+        timeoutId = setTimeout(function () {
+            if (video.paused) {
+                handleFailure();
+            } else {
+                handleSuccess();
+            }
+        }, 1800);
+
+        try {
+            playResult = video.play();
+            if (playResult && typeof playResult.then === 'function') {
+                playResult.then(handleSuccess, handleFailure);
+            }
+        } catch (error) {
+            handleFailure();
+        }
+    }
+
+    window.ArtHOIVideoCompat = {
+        addClass: addClass,
+        removeClass: removeClass,
+        supportsMp4Playback: supportsMp4Playback,
+        safeScrollToX: safeScrollToX,
+        prepareVideo: prepareVideo,
+        enableManualPlayback: enableManualPlayback,
+        renderVideoFallback: renderVideoFallback,
+        tryAutoplay: tryAutoplay
+    };
+})(window, document);
+</script>
+
+<script>
+(function () {
+    var compat = window.ArtHOIVideoCompat;
+    var carousel = document.getElementById('videoCarousel');
+    var carouselVideos;
+    var AUTOPLAY_MS = 3000;
+    var RESUME_DELAY_MS = 2400;
+    var ANIM_LOCK_MS = 520;
+    var DWELL_MS = 240;
+    var timer;
+    var isAnimating = false;
+    var manualCarouselMode = false;
+
+    if (!carousel || !compat) return;
+
+    carouselVideos = carousel.getElementsByTagName('video');
 
     function getStep() {
-        const card = carousel.querySelector('.carousel-card');
+        var card = carousel.querySelector('.carousel-card');
+        var gap = 16;
         if (!card) return 0;
-        const gap = parseInt(getComputedStyle(carousel).gap, 10) || 16;
+        if (window.getComputedStyle) {
+            gap = parseInt(window.getComputedStyle(carousel).gap, 10) || 16;
+        }
         return card.offsetWidth + gap;
     }
 
@@ -299,51 +506,100 @@
     }
 
     function scrollToIndex(index) {
-        const step = getStep();
+        var step = getStep();
         if (!step) return;
         isAnimating = true;
-        carousel.scrollTo({ left: step * index, behavior: 'smooth' });
-        setTimeout(() => {
+        compat.safeScrollToX(carousel, step * index);
+        setTimeout(function () {
             isAnimating = false;
         }, ANIM_LOCK_MS);
     }
 
     function advance() {
-        if (isAnimating) return;
-        const count = getCardCount();
-        const step = getStep();
+        var count;
+        var step;
+        var currentIndex;
+        var nextIndex;
+        if (manualCarouselMode || isAnimating) return;
+        count = getCardCount();
+        step = getStep();
         if (!count || !step) return;
-        const currentIndex = Math.round(carousel.scrollLeft / step);
-        const nextIndex = (currentIndex + 1) % count;
+        currentIndex = Math.round(carousel.scrollLeft / step);
+        nextIndex = (currentIndex + 1) % count;
         scrollToIndex(nextIndex);
     }
 
-    const DWELL_MS = 240;
-
     function start() {
         stop();
+        if (manualCarouselMode) return;
         timer = setTimeout(function go() {
             advance();
             timer = setTimeout(go, AUTOPLAY_MS + ANIM_LOCK_MS + DWELL_MS);
         }, AUTOPLAY_MS);
     }
 
-    function stop() { clearTimeout(timer); }
+    function stop() {
+        clearTimeout(timer);
+    }
+
+    function enableCarouselFallback() {
+        var index;
+        manualCarouselMode = true;
+        stop();
+        for (index = 0; index < carouselVideos.length; index += 1) {
+            compat.enableManualPlayback(carouselVideos[index]);
+        }
+    }
+
+    function initCarouselVideos() {
+        var index;
+
+        if (!compat.supportsMp4Playback()) {
+            for (index = carouselVideos.length - 1; index >= 0; index -= 1) {
+                compat.renderVideoFallback(carouselVideos[index]);
+            }
+            enableCarouselFallback();
+            return;
+        }
+
+        for (index = 0; index < carouselVideos.length; index += 1) {
+            (function (video) {
+                compat.tryAutoplay(video, function () {
+                    if (manualCarouselMode) {
+                        compat.enableManualPlayback(video);
+                        return;
+                    }
+                    video.controls = false;
+                    video.removeAttribute('controls');
+                }, function () {
+                    enableCarouselFallback();
+                });
+            })(carouselVideos[index]);
+        }
+    }
 
     carousel.addEventListener('mouseenter', stop);
     carousel.addEventListener('mouseleave', start);
-    carousel.addEventListener('touchstart', stop, { passive: true });
-    carousel.addEventListener('touchend',   () => setTimeout(start, RESUME_DELAY_MS), { passive: true });
+    carousel.addEventListener('touchstart', stop, false);
+    carousel.addEventListener('touchend', function () {
+        setTimeout(start, RESUME_DELAY_MS);
+    }, false);
 
+    initCarouselVideos();
     start();
 
-    window.scrollCarousel = function(btn, dir) {
+    window.scrollCarousel = function (_btn, dir) {
+        var count;
+        var step;
+        var currentIndex;
+        var nextIndex;
+
         stop();
-        const count = getCardCount();
-        const step = getStep();
+        count = getCardCount();
+        step = getStep();
         if (!count || !step) return;
-        const currentIndex = Math.round(carousel.scrollLeft / step);
-        const nextIndex = (currentIndex + dir + count) % count;
+        currentIndex = Math.round(carousel.scrollLeft / step);
+        nextIndex = (currentIndex + dir + count) % count;
         scrollToIndex(nextIndex);
         setTimeout(start, AUTOPLAY_MS);
     };
@@ -352,23 +608,65 @@
 
 <script>
 (function () {
+    var compat = window.ArtHOIVideoCompat;
     var wrap = document.getElementById('teaserWrap');
     var grid = document.getElementById('teaserGrid');
     var iconEl = document.getElementById('teaserPauseIcon');
     var iconSvg = document.getElementById('teaserIconSvg');
     var prevBtn = document.getElementById('teaserPrev');
     var nextBtn = document.getElementById('teaserNext');
+    var speedBtn = document.getElementById('teaserSpeedBtn');
     if (!grid) return;
+    if (!compat) return;
 
     var vids = Array.prototype.slice.call(grid.querySelectorAll('.teaser-vid'));
     var paused = false;
     var iconTimer;
     var LOOP_GAP_MS = 560;
+    var manualTeaserMode = false;
+
+    function enableTeaserFallback() {
+        manualTeaserMode = true;
+        paused = true;
+        compat.addClass(wrap, 'teaser-grid-wrap--fallback');
+        vids.forEach(function (video) {
+            compat.enableManualPlayback(video);
+        });
+        if (speedBtn) {
+            speedBtn.disabled = true;
+            speedBtn.setAttribute('aria-disabled', 'true');
+            speedBtn.textContent = 'Manual';
+        }
+    }
+
+    if (!compat.supportsMp4Playback()) {
+        vids.slice().reverse().forEach(function (video) {
+            compat.renderVideoFallback(video);
+        });
+        enableTeaserFallback();
+        return;
+    }
+
+    vids.forEach(function (video) {
+        compat.tryAutoplay(video, function () {
+            if (manualTeaserMode) {
+                compat.enableManualPlayback(video);
+                return;
+            }
+            video.controls = false;
+            video.removeAttribute('controls');
+        }, function () {
+            enableTeaserFallback();
+        });
+    });
 
     vids.forEach(function (v) {
         v.addEventListener('ended', function () {
             setTimeout(function () {
-                if (!paused) { v.currentTime = 0; var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+                if (!paused && !manualTeaserMode) {
+                    v.currentTime = 0;
+                    compat.tryAutoplay(v, function () {}, function () { enableTeaserFallback(); });
+                }
             }, LOOP_GAP_MS);
         });
     });
@@ -382,11 +680,17 @@
     }
 
     if (wrap) {
-        wrap.addEventListener('click', function () {
-            if (window.innerWidth <= 640) return;
+        wrap.addEventListener('click', function (event) {
+            if (window.innerWidth <= 640 || manualTeaserMode) return;
+            if (event && event.target && event.target.tagName === 'VIDEO' && event.target.controls) return;
             paused = !paused;
             vids.forEach(function (v) {
-                if (paused) { v.pause(); } else { if (v.ended) v.currentTime = 0; v.play(); }
+                if (paused) {
+                    v.pause();
+                } else {
+                    if (v.ended) v.currentTime = 0;
+                    compat.tryAutoplay(v, function () {}, function () { enableTeaserFallback(); });
+                }
             });
             showIcon(paused
                 ? '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>'
@@ -399,19 +703,19 @@
         if (!w) return;
         var cur = Math.round(grid.scrollLeft / w);
         var next = ((cur + dir) % vids.length + vids.length) % vids.length;
-        grid.scrollTo({ left: next * w, behavior: 'smooth' });
+        compat.safeScrollToX(grid, next * w);
     }
 
     if (prevBtn) prevBtn.addEventListener('click', function (e) { e.stopPropagation(); mobileNav(-1); });
     if (nextBtn) nextBtn.addEventListener('click', function (e) { e.stopPropagation(); mobileNav(1); });
 
-    var speedBtn = document.getElementById('teaserSpeedBtn');
     var speedSteps = [1, 0.5];
     var speedLabels = ['1×', '½×'];
     var speedIdx = 0;
 
     if (speedBtn) {
         speedBtn.addEventListener('click', function (e) {
+            if (manualTeaserMode) return;
             e.stopPropagation();
             speedIdx = (speedIdx + 1) % speedSteps.length;
             vids.forEach(function (v) { v.playbackRate = speedSteps[speedIdx]; });

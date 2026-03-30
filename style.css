@@ -455,6 +455,54 @@ body {
     max-width: 100%;
     height: auto;
     min-width: 0;
+    background: #000;
+}
+
+.teaser-vid.video-manual-mode,
+.carousel-card video.video-manual-mode {
+    background: #000;
+}
+
+.video-fallback {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 150px;
+    padding: 18px;
+    background: linear-gradient(160deg, #f8fbff 0%, #eef4ff 100%);
+    color: #17315f;
+    text-decoration: none;
+    border: 1px solid rgba(47, 98, 218, 0.14);
+}
+
+.video-fallback:hover {
+    background: linear-gradient(160deg, #f1f7ff 0%, #e5efff 100%);
+}
+
+.video-fallback__title {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.video-fallback__hint {
+    margin-top: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #4f6488;
+}
+
+.teaser-grid-wrap--fallback {
+    cursor: default;
+}
+
+.teaser-grid-wrap--fallback .teaser-pause-icon {
+    display: none;
+}
+
+.teaser-grid-wrap--fallback + .teaser-controls .teaser-speed-btn {
+    opacity: 0.55;
+    cursor: default;
 }
 
 .teaser-pause-icon {
@@ -510,6 +558,12 @@ body {
     background: rgba(116, 132, 156, 0.09);
     border-color: rgba(116, 132, 156, 0.6);
     color: var(--text);
+}
+
+.teaser-speed-btn:disabled {
+    background: rgba(116, 132, 156, 0.06);
+    border-color: rgba(116, 132, 156, 0.26);
+    color: #818792;
 }
 
 .teaser-nav {
@@ -647,6 +701,16 @@ body {
     display: block;
     width: 100%;
     height: auto;
+}
+
+.carousel-card--fallback {
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-card--fallback .video-fallback {
+    min-height: 188px;
+    border: none;
 }
 
 .carousel-label {
